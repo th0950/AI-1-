@@ -54,7 +54,7 @@ int main(void)
 
 
         if (pid < 0) { //pid 는 음수
-            printf("pid < 0인 구문 실행");
+            printf("pid<0인 구문 실행");
             fprintf(stderr, "fork failed\n");
             exit(1);
         }
@@ -83,27 +83,28 @@ int main(void)
 
             if (strcmp(s, "help") == 0) {
                 printf("명령어 : ls / 오늘의 학식 / 오늘의 날씨 / 눈뽕\n");
-                exit(0);
             }
 
             if (strcmp(s, "오늘의 학식") == 0){
                 system("explorer.exe http://www.kookmin.ac.kr/user/unLvlh/lvlhSpor/todayMenu/index.do");
-                exit(0);
             }
 
             if (strcmp(s, "오늘의 날씨") == 0){
-                args[0] = system("explorer.exe https://www.weather.go.kr/w/weather/forecast/short-term.do#");
-                exit(0);
+                system("explorer.exe https://www.weather.go.kr/w/weather/forecast/short-term.do#");
             }
 
             if (strcmp(s, "눈뽕") == 0){
-                args[0] = "./colortool.exe campbell";
-                exit(0);
+                for (int i = 0; i < 50; i ++){
+                     int c = rand()% 7 + 1;
+                     usleep(50000);
+                     printf("\033[4%dm                                                                                                                                                      \n", c);
+                     }
+                printf("\033[0mdefault colors\n");
+                
             }
 
             if (strcmp(s, "ls")== 0){
 		        args[0] = "/bin/ls";
-                exit(0);
 	        }
 
             
