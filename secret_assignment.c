@@ -26,7 +26,7 @@ int main(void)
         
         printf("MyShell $ ");
         s = fgets(command, MAX_LEN_LINE, stdin);
-        
+
         
         if (s == NULL) {
             fprintf(stderr, "fgets failed\n");
@@ -40,6 +40,12 @@ int main(void)
         }
 
         
+        if (strcmp(command, "exit") == 0) {
+                printf("프로그램 종료합니다.\n");
+                return(-1);
+            }
+
+        
       
         pid = fork();
 
@@ -48,7 +54,7 @@ int main(void)
 
 
         if (pid < 0) { //pid 는 음수
-            printf("pid<0인 구문 실행");
+            printf("pid < 0인 구문 실행");
             fprintf(stderr, "fork failed\n");
             exit(1);
         }
@@ -74,34 +80,30 @@ int main(void)
         else {  /* child */ //pid 는 0
             printf("자식 프로세스 실행되었음\n");
 
-            if (strcmp(s, "exit") == 0) {
-                printf("프로그램 종료합니다.");
-                break;
-            }
-
 
             if (strcmp(s, "help") == 0) {
-                printf("명령어 : cd / ls / 오늘의 학식 / 오늘의 날씨 / 눈뽕\n");
+                printf("명령어 : ls / 오늘의 학식 / 오늘의 날씨 / 눈뽕\n");
+                exit(0);
             }
 
             if (strcmp(s, "오늘의 학식") == 0){
                 system("explorer.exe http://www.kookmin.ac.kr/user/unLvlh/lvlhSpor/todayMenu/index.do");
+                exit(0);
             }
 
             if (strcmp(s, "오늘의 날씨") == 0){
                 args[0] = system("explorer.exe https://www.weather.go.kr/w/weather/forecast/short-term.do#");
+                exit(0);
             }
 
             if (strcmp(s, "눈뽕") == 0){
                 args[0] = "./colortool.exe campbell";
+                exit(0);
             }
 
             if (strcmp(s, "ls")== 0){
 		        args[0] = "/bin/ls";
-	        }
-
-            if (strcmp(s, "mkdir") == 0){
-		        args[0] = "/bin/mkdir";
+                exit(0);
 	        }
 
             
